@@ -1,0 +1,33 @@
+<div>
+    <input type="text" ng-model="type">
+    <button ng-click="pexpen.addType(type)">Add type</button>
+</div>
+
+<div>
+    <select ng-options="type for type in pexpen.types" ng-model="expense.type"></select>
+    <input type="date" ng-model="expense.date">
+    <input type="number" ng-model="expense.amount">
+    <button ng-click="pexpen.createExpense(expense)">Create expense</button>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th ng-repeat="type in pexpen.types">{{type}}</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="date in pexpen.dates">
+                <td><strong>{{date | date:'MMMM yyyy'}}</strong></td>
+                <td ng-repeat="type in pexpen.types">
+                    <span ng-hide="pexpen.amounts[$parent.$index][$index].editing" ng-dblclick="pexpen.amounts[$parent.$index][$index].editing = true">{{pexpen.expenses[type][date]}}</span>
+                    <input ng-show="pexpen.amounts[$parent.$index][$index].editing" type="number" ng-model="amount" ng-blur="pexpen.updateAmount(type, date, amount, $parent.$index, $index)" autofocus>
+                </td>
+                <td>{{pexpen.totals[date]}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
