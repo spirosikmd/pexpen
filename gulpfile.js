@@ -45,6 +45,17 @@ gulp.task('bower', function() {
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
+// copy fonts
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+gulp.task('copy-fonts', ['clean'], function() {
+   return gulp.src('./fonts/**/*.{ttf,woff,eof,svg,eot,woff2,otf}')
+        .pipe(gulp.dest('./dist/fonts'));
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
 // runs sass, creates css source maps
 //
 /////////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +123,7 @@ gulp.task('test', ['build-js'], function() {
             throw err;
         });
 });
+
 /////////////////////////////////////////////////////////////////////////////////////
 //
 // Build a minified Javascript bundle - the order of the js files is determined
@@ -144,7 +156,7 @@ gulp.task('build-js', ['clean'], function() {
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('build', [ 'clean', 'bower','build-css','build-template-cache', 'jshint', 'build-js'], function() {
+gulp.task('build', ['clean', 'bower', 'copy-fonts', 'build-css', 'build-template-cache', 'jshint', 'build-js'], function() {
     return gulp.src('index.html')
         .pipe(cachebust.references())
         .pipe(gulp.dest('dist'));

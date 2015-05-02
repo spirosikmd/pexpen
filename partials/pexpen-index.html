@@ -1,32 +1,44 @@
-<div>
-    <input type="text" ng-model="type">
-    <button ng-click="pexpen.addType(type)">Add type</button>
-</div>
+<nav class="uk-navbar">
+    <a href="" class="uk-navbar-brand">pexpen</a>
 
-<div>
-    <select ng-options="type for type in pexpen.types" ng-model="expense.type"></select>
-    <input type="date" ng-model="expense.date">
-    <input type="number" ng-model="expense.amount">
-    <button ng-click="pexpen.createExpense(expense)">Create expense</button>
-</div>
+    <div class="uk-navbar-content">
+        <form class="uk-form uk-margin-remove uk-display-inline-block">
+            <input type="text" ng-model="type">
+            <button class="uk-button uk-button-primary" ng-click="pexpen.addType(type)">Add type</button>
+        </form>
+    </div>
 
-<div>
-    <table>
+    <div class="uk-navbar-content uk-navbar-flip">
+        <form class="uk-form uk-margin-remove uk-display-inline-block">
+            <select ng-options="type for type in pexpen.types" ng-model="expense.type"></select>
+            <input type="date" ng-model="expense.date">
+            <input type="number" ng-model="expense.amount">
+            <button class="uk-button uk-button-primary" ng-click="pexpen.createExpense(expense)">Create expense</button>
+        </form>
+    </div>
+</nav>
+
+<div class="uk-overflow-container">
+    <table class="uk-table uk-table-hover">
         <thead>
             <tr>
                 <th></th>
-                <th ng-repeat="type in pexpen.types">{{type}}</th>
+                <th ng-repeat="type in pexpen.types" class="uk-text-center">{{type}}</th>
                 <th>Total</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="date in pexpen.dates">
                 <td><strong>{{date | date:'MMMM yyyy'}}</strong></td>
-                <td ng-repeat="type in pexpen.types">
+                <td ng-repeat="type in pexpen.types" class="uk-text-center">
                     <span ng-hide="pexpen.amounts[$parent.$index][$index].editing" ng-dblclick="pexpen.amounts[$parent.$index][$index].editing = true">{{pexpen.expenses[type][date]}}</span>
-                    <input ng-show="pexpen.amounts[$parent.$index][$index].editing" type="number" ng-model="amount" ng-blur="pexpen.updateAmount(type, date, amount, $parent.$index, $index)" autofocus>
+                    <form class="uk-form uk-margin-remove uk-display-inline-block">
+                        <input ng-show="pexpen.amounts[$parent.$index][$index].editing" type="number" ng-model="pexpen.amounts[$parent.$index][$index].amount" ng-init="pexpen.amounts[$parent.$index][$index].amount = pexpen.expenses[type][date]" step="any" min="0" class="editing-input" autofocus>
+                    </form>
+                    <span ng-show="pexpen.amounts[$parent.$index][$index].editing" ng-click="pexpen.updateAmount(type, date, pexpen.amounts[$parent.$index][$index].amount, $parent.$index, $index)" class="uk-icon-check action"></span>
+                    <span ng-show="pexpen.amounts[$parent.$index][$index].editing" ng-click="pexpen.amounts[$parent.$index][$index].editing = false" class="uk-icon-close action"></span>
                 </td>
-                <td>{{pexpen.totals[date]}}</td>
+                <td class="uk-text-primary">{{pexpen.totals[date] | number: 2}}</td>
             </tr>
         </tbody>
     </table>

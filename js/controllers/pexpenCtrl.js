@@ -16,7 +16,7 @@ angular.module('pexpen')
         ];
 
         context.expenses = expenseService.get();
-        context.types = ['Rent'];
+        context.types = [];
         context.dates = [];
         context.totals = {};
         context.amounts = {};
@@ -76,7 +76,6 @@ angular.module('pexpen')
                 });
             });
         };
-        context.updateDates();
 
         context.updateTypes = function () {
             angular.forEach(context.expenses, function (expense, type) {
@@ -85,7 +84,6 @@ angular.module('pexpen')
                 }
             });
         };
-        context.updateTypes();
 
         context.updateTotals = function () {
             angular.forEach(context.dates, function (date) {
@@ -104,5 +102,12 @@ angular.module('pexpen')
                 context.totals[date] = total;
             });
         };
-        context.updateTotals();
+
+        context.update = function () {
+            context.updateDates();
+            context.updateTypes();
+            context.updateTotals();
+        };
+
+        context.update();
     });

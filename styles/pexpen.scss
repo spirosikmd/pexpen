@@ -1,3 +1,12 @@
+@import "bower_components/uikit/scss/uikit-mixins.scss";
 
-@import "base";
-@import "index";
+// your custom code goes here, e.g. mixins, variables
+.editing-input {
+    width: 80px;
+}
+
+.action {
+    cursor: pointer;
+}
+
+@import "bower_components/uikit/scss/uikit.scss";
