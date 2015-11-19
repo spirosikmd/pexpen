@@ -3,7 +3,7 @@
     'use strict';
 
     describe('Pexpen Controller', function () {
-        var ctrl, scope, store;
+        var ctrl, store;
 
         // Load the module containing the app, only 'ng' is loaded by default.
         beforeEach(module('pexpen'));
