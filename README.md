@@ -1,6 +1,8 @@
 Pexpen
 ======
 
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/ee17cbe1b3b24d0f8e2514f685717a20)](https://www.codacy.com/app/spyrosikmd/pexpen)
+
 Record your personal monthly expenses by type.
 
 The app is simple and minimal. The skeleton of the project is based on the [todo](https://github.com/jhades/angularjs-gulp-todo) version.
